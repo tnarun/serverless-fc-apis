@@ -19,3 +19,19 @@ Resources:
             Methods:
               - GET
               - POST
+    api:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        Runtime: nodejs8
+        Timeout: 60
+        MemorySize: 512
+        CodeUri: shimo/api
+      Events:
+        httpTrigger:
+          Type: HTTP
+          Properties:
+            AuthType: ANONYMOUS
+            Methods:
+              - GET
+              - POST
