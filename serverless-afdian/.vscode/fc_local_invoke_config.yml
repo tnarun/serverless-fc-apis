@@ -1,0 +1,9 @@
+templates:
+  template.yml:
+    tna-afdian-api:
+      api:
+        event: default_evt
+        events:
+          default_evt:
+            type: file
+            value: code/event.evt
