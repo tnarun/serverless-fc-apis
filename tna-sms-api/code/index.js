@@ -1,31 +1,17 @@
 const Router = require('url-router')
 const util = require('util')
-const { getJsonBody, respJSON } = require('ben7th-fc-utils')
+const { respJSON } = require('ben7th-fc-utils')
 
 require('./env')
-const SMS = require('./lib/sms')
 
-const router = new Router([
-  // POST
-  // 发送注册验证码
-  ['/sendRegCheckCode', async ({ req, resp, route }) => {
-    let { body } = await getJsonBody({ req, resp })
-    let { phoneNumber } = body
-    let sms = new SMS()
-    let res = await sms.sendRegCheckCode({ phoneNumber })
-    return { phoneNumber, res }
-  }],
+const modv1 = require('./mods/v1')
+const modv2 = require('./mods/v2')
 
-  // POST
-  // 检查注册验证码
-  ['/checkRegCheckCode', async ({ req, resp, route }) => {
-    let { body } = await getJsonBody({ req, resp })
-    let { phoneNumber, code } = body
-    let sms = new SMS()
-    let res = await sms.checkRegCheckCode({ phoneNumber, code })
-    return { res }
-  }],
-])
+const opts = []
+  .concat(modv1)
+  .concat(modv2)
+
+const router = new Router(opts)
 
 module.exports.handler = (req, resp, context) => {
   // let params = {

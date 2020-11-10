@@ -2,7 +2,10 @@ require('../env')
 
 const ossClient = require('./ossClient')
 const Core = require('@alicloud/pop-core')
+const _genCode = require('./_genCode')
 
+// API 参考：
+// https://help.aliyun.com/document_detail/57458.html?spm=a2c4g.11186623.6.685.1b76545dAMVEaR
 const client = new Core({
   accessKeyId: process.env.SIBBAY_OSS_ACCESS_KEY_ID,
   accessKeySecret: process.env.SIBBAY_OSS_ACCESS_KEY_SECRET,
@@ -26,16 +29,6 @@ const _sendCode = async ({ phoneNumber, code }) => {
   let result = await client.request('SendSms', params, requestOption)
   console.log(JSON.stringify(result))
   return result
-}
-
-const _genCode = () => {
-  let arr = '0123456789'
-  let code = ''
-  for (let i = 0; i < 4; i ++) {
-    let s = arr[~~(Math.random() * arr.length)]
-    code = `${code}${s}`
-  }
-  return code
 }
 
 const _saveCodeToOSS = async ({ phoneNumber, code }) => {
