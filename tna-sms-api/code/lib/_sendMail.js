@@ -11,7 +11,7 @@ const { TEXT_TEMPLATE, HTML_TEMPLATE } = require('../templates/template')
 
 const mailTransport = nodemailer.createTransport({
   host: SMTP_HOST,
-  port: SMTP_PORT,
+  port: SMTP_PORT, // FC 上只能用 80 端口
   auth: {
     user: SMTP_USER,
     pass: SMTP_PASS
@@ -34,6 +34,7 @@ const send = async ({ email, code }) => {
 
   let res = await mailTransport.sendMail(options)
   return res
+  // console.log(options)
 }
 
 module.exports = send

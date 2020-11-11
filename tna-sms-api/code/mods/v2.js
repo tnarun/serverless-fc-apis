@@ -20,7 +20,7 @@ module.exports = [
     let { phoneNumber, code } = body
     let sms = new SMS()
     let res = await sms.checkRegCheckCode({ phoneNumber, code })
-    return { res }
+    return { phoneNumber, res }
   }],
 
   // POST
@@ -28,8 +28,8 @@ module.exports = [
   ['/v2/sendMailCode', async ({ req, resp, route }) => {
     let { body } = await getJsonBody({ req, resp })
     let { email } = body
-    let mail = new Mail()
-    let res = await mail.sendRegCheckCode({ email })
+    let ms = new Mail()
+    let res = await ms.sendRegCheckCode({ email })
     return { email, res }
   }],
 
@@ -40,6 +40,6 @@ module.exports = [
     let { email, code } = body
     let mail = new Mail()
     let res = await mail.checkRegCheckCode({ email, code })
-    return { res }
+    return { email, res }
   }]
 ]
